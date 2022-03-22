@@ -10,21 +10,23 @@ export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
 
     // Init extrinsic.
     const block_nr = header.number.toNumber();
-    const e_idx = extrinsic.idx;
+    const index = extrinsic.idx;
+    const id = `${block_nr}-${index}`;
 
-    const e = new Extrinsic(`${block_nr}-${e_idx}`);
+    const e = new Extrinsic(id);
     e.block_hash = header.hash.toString();
     e.block_nr = block_nr;
     e.timestamp = extrinsic.block.timestamp.toISOString();
-    e.index = e_idx;
+    e.index = index;
 
     // Name of the extrinsic
     e.name = (meta.name as Text).toHuman();
 
     // Map fields
     var ids = new Array();
+    var counter = 0;
     for (let item of meta.fields) {
-        const field = new SilField("");
+        const field = new SilField(`${id}-silfield-${counter}`);
 
         if (item.name.isSome) {
             field.name = (item.name.value as Text).toString();
@@ -38,6 +40,7 @@ export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
         // Push to storage, track Id.
         await field.save();
         ids.push(field.id);
+        counter += 1;
     }
 
     e.fieldsId = ids;
@@ -46,8 +49,9 @@ export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
 
     // Map function arguments.
     var ids = new Array();
+    var counter = 0;
     for (let item of meta.args) {
-        const arg = new FunctionArgument("");
+        const arg = new FunctionArgument(`${id}-func-arg-${counter}`);
 
         arg.name = (item.name as Text).toString();
         arg.type = (item.type as Text).toString();
@@ -58,6 +62,7 @@ export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
         // Push to storage, track Id.
         await arg.save();
         ids.push(arg.id);
+        counter += 1;
     }
 
     // Map function argument Ids, save extrinsic to storage.
