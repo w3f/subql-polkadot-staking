@@ -1,4 +1,4 @@
-import { SubstrateExtrinsic, SubstrateEvent, SubstrateBlock } from "@subql/types";
+import { SubstrateExtrinsic } from "@subql/types";
 import { Extrinsic, FunctionArgument, SilField } from "../types";
 import { Balance } from "@polkadot/types/interfaces";
 import { Text, Compact, u32 } from "@polkadot/types-codec";

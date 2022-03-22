@@ -1,10 +1,9 @@
 specVersion: 0.2.0
-name: polkadot-staking
+name: polkadot-extrinsics
 version: 0.0.4
 description: >-
-  This project can be use as a starting point for developing your SubQuery
-  project
-repository: https://github.com/subquery/subql-starter
+  This projects collects all Polkadot extrinsics.
+repository: https://github.com/lamafab/subql-dot-extrinsics
 schema:
   file: ./schema.graphql
 network:
@@ -12,7 +11,7 @@ network:
   genesisHash: '0x91b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3'
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 1000
+    startBlock: 0
     mapping:
       file: ./dist/index.js
       handlers:
