@@ -10,6 +10,7 @@ type Extrinsic @entity {
 }
 
 type SilField @entity {
+  id: ID!
   name: String
   type: Int!
   typeName: String
@@ -17,6 +18,7 @@ type SilField @entity {
 }
 
 type FunctionArgument @entity {
+  id: ID!
   name: String!
   type: String!
   typeName: String
