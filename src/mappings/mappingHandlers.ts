@@ -5,11 +5,14 @@ import { Text, Compact, u32 } from "@polkadot/types-codec";
 
 export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
     const e = new Extrinsic("");
-    const m = extrinsic.extrinsic.meta;
-    e.name = (m.name as Text).toHuman();
+    // Extract info about the extrinsic via the metadata.
+    const meta = extrinsic.extrinsic.meta;
 
+    e.name = (meta.name as Text).toHuman();
+
+    // Map fields
     var ids = new Array();
-    for (let item of m.fields) {
+    for (let item of meta.fields) {
         const field = new SilField("");
 
         if (item.name.isSome) {
@@ -21,16 +24,18 @@ export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
         }
         field.docs = (item.docs as Array<Text>).map((t) => { return t.toString(); });
 
+        // Push to storage, track Id.
         await field.save();
         ids.push(field.id);
     }
 
     e.fieldsId = ids;
-    e.index = m.index.toNumber();
-    e.docs = (m.docs as Array<Text>).map((t) => { return t.toString(); });
+    e.index = meta.index.toNumber();
+    e.docs = (meta.docs as Array<Text>).map((t) => { return t.toString(); });
 
+    // Map function arguments.
     var ids = new Array();
-    for (let item of m.args) {
+    for (let item of meta.args) {
         const arg = new FunctionArgument("");
 
         arg.name = (item.name as Text).toString();
@@ -39,10 +44,12 @@ export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
             arg.typeName = (item.typeName.value as Text).toString();
         }
 
+        // Push to storage, track Id.
         await arg.save();
         ids.push(arg.id);
     }
 
+    // Map function argument Ids, save extrinsic to storage.
     e.argsId = ids;
     await e.save();
 }
