@@ -2,9 +2,11 @@ type Extrinsic @entity {
   id: ID!
   block_hash: String!
   block_nr: Int!
+  timestamp: String!
+  index: Int!
   name: String!
   fields: [SilField]!
-  index: Int!
+  call_index: Int!
   docs: [String]!
   args: [FunctionArgument]!
 }

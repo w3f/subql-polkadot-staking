@@ -4,10 +4,21 @@ import { Balance } from "@polkadot/types/interfaces";
 import { Text, Compact, u32 } from "@polkadot/types-codec";
 
 export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
-    const e = new Extrinsic("");
     // Extract info about the extrinsic via the metadata.
     const meta = extrinsic.extrinsic.meta;
+    const header = extrinsic.block.block.header;
 
+    // Init extrinsic.
+    const block_nr = header.number.toNumber();
+    const e_idx = extrinsic.idx;
+
+    const e = new Extrinsic(`${block_nr}-${e_idx}`);
+    e.block_hash = header.hash.toString();
+    e.block_nr = block_nr;
+    e.timestamp = extrinsic.block.timestamp.toISOString();
+    e.index = e_idx;
+
+    // Name of the extrinsic
     e.name = (meta.name as Text).toHuman();
 
     // Map fields
@@ -30,7 +41,7 @@ export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
     }
 
     e.fieldsId = ids;
-    e.index = meta.index.toNumber();
+    e.call_index = meta.index.toNumber();
     e.docs = (meta.docs as Array<Text>).map((t) => { return t.toString(); });
 
     // Map function arguments.
