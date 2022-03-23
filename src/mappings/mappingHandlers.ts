@@ -17,12 +17,21 @@ export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
     e.block_hash = header.hash.toString();
     e.block_nr = block_nr;
     e.timestamp = extrinsic.block.timestamp.toISOString();
+    e.signer = extrinsic.extrinsic.signer.toString();
     e.index = index;
 
     // Name of the extrinsic
     e.name = (meta.name as Text).toHuman();
     e.call_index = meta.index.toNumber();
     e.docs = (meta.docs as Array<Text>).map((t) => { return t.toString(); });
+
+    // Call data.
+    const raw = extrinsic.extrinsic.data;
+    if (raw.length == 1) { // [0] = empty
+        const data = Buffer.from(raw).toString("hex");
+        e.call_data = data;
+    }
+
     await e.save();
 
     // Map fields

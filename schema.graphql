@@ -3,12 +3,14 @@ type Extrinsic @entity {
   block_hash: String!
   block_nr: Int!
   timestamp: String!
+  signer: String!
   index: Int!
   name: String!
   fields: [SilField]! @derivedFrom(field: "extrinsic")
   call_index: Int!
   docs: [String]!
   args: [FunctionArgument]! @derivedFrom(field: "extrinsic")
+  call_data: String
 }
 
 type SilField @entity {
