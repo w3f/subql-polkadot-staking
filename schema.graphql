@@ -5,10 +5,10 @@ type Extrinsic @entity {
   timestamp: String!
   index: Int!
   name: String!
-  fields: [SilField]!
+  fields: [SilField]! @derivedFrom(field: "extrinsic")
   call_index: Int!
   docs: [String]!
-  args: [FunctionArgument]!
+  args: [FunctionArgument]! @derivedFrom(field: "extrinsic")
 }
 
 type SilField @entity {
@@ -17,6 +17,7 @@ type SilField @entity {
   type: Int!
   typeName: String
   docs: [String]!
+  extrinsic: Extrinsic!
 }
 
 type FunctionArgument @entity {
@@ -24,4 +25,5 @@ type FunctionArgument @entity {
   name: String!
   type: String!
   typeName: String
+  extrinsic: Extrinsic!
 }
