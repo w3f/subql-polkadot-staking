@@ -27,9 +27,10 @@ export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
 
     // Call data.
     const raw = extrinsic.extrinsic.data;
-    if (raw.length > 1) { // [0] = empty
-        const data = Buffer.from(raw).toString("hex");
-        e.call_data = data;
+    if (raw.length > 1) {
+        if (raw.length != 1 && raw[0] != 0) { // [0] = empty
+            e.call_data = Buffer.from(raw).toString("hex");
+        }
     }
 
     await e.save();
