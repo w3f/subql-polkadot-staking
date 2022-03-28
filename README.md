@@ -12,6 +12,12 @@ You need `yarn` and `nodejs`, then install the required packages:
 yarn global add @subql/cli @subql/node @subql/query
 ```
 
+## Building
+
+```bash
+yarn && yarn codegen && yarn build
+```
+
 ## Execution
 
 ```bash
