@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-node
+  labels:
+    app: {{ .Release.Name }}-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-node
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-node
+    spec:
+      containers:
+      - name: {{ .Release.Name }}
+        image: {{ .Values.node.image.repo }}:{{ .Values.node.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DB_USER
+          value: postgres
+        - name: DB_PASS
+          value: postgres
+        - name: DB_DATABASE
+          value: postgres
+        - name: DB_HOST
+          value: postgres-postgresql
+        - name: DB_PORT
+          value: "5432"  
+        args:
+        - -f=/app
+        - -p={{ .Values.node.config.port }}
+        # - --debug
+        - --network-endpoint={{ .Values.node.config.endpoint }}
+        - --db-schema=app
+        - --batch-size=500
+        # - --scale-batch-size=true
+        ports:
+        - name: service
+          containerPort: {{ .Values.node.config.port }}
+        # livenessProbe:
+        #   httpGet:
+        #     path: /healthcheck
+        #     port: {{ .Values.node.config.port }}
+        #   initialDelaySeconds: 10
+        #   timeoutSeconds: 200
+        {{ if ne .Values.environment "ci" }}
+        resources:
+          {{- toYaml .Values.node.resources | nindent 10 }}
+        {{ end }}  
