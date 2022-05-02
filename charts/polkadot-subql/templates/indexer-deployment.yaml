@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "indexer.deploymentName" . }}
+  labels:
+    app: {{ include "indexer.deploymentName" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "indexer.deploymentName" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "indexer.deploymentName" . }}
+    spec:
+      {{- if .Values.affinity }}
+      affinity:
+{{ toYaml .Values.affinity | indent 8 }}      
+      {{- end }}  
+      {{- if .Values.tolerations }}          
+      tolerations:
+{{ toYaml .Values.tolerations | indent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ include "indexer.deploymentName" . }}
+        image: {{ .Values.indexer.image.repo }}:{{ .Values.indexer.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DB_USER
+          value: {{ .Values.db.user }}
+        - name: DB_PASS
+          value: {{ .Values.db.password }}
+        - name: DB_DATABASE
+          value: {{ .Values.db.database }}
+        - name: DB_HOST
+          value: {{ .Values.db.host }}
+        - name: DB_PORT
+          value: {{ .Values.db.port | quote }}  
+        args:
+        - -f=/app
+        - -p={{ .Values.indexer.config.port }}
+        # - --debug
+        - --network-endpoint={{ .Values.indexer.config.endpoint }}
+        - --db-schema=app
+        - --batch-size={{ .Values.indexer.config.batchSize }}
+        # - --scale-batch-size=true
+        ports:
+        - name: service
+          containerPort: {{ .Values.indexer.config.port }}
+        livenessProbe:
+          httpGet:
+            path: /ready
+            port: {{ .Values.indexer.config.port }}
+          initialDelaySeconds: 10
+          timeoutSeconds: 200
+        {{ if ne .Values.environment "ci" }}
+        resources:
+          {{- toYaml .Values.indexer.resources | nindent 10 }}
+        {{ end }}  

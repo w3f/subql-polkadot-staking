@@ -1,0 +1,9 @@
+environments:
+  ci:
+
+releases:
+
+- name: polkadot-subql
+  chart: ../charts/polkadot-subql
+  values:
+  - ./config/polkadot-subql-values.yaml.gotmpl

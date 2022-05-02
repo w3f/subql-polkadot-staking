@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/w3f/subql-polkadot-extrinsics.svg?style=svg)](https://circleci.com/gh/w3f/subql-polkadot-extrinsics)
+
 # SubQuery - Polkadot Extrinsics
 
 

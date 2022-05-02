@@ -1,0 +1,40 @@
+volumePermissions:
+  enabled: true
+auth:
+  enablePostgresUser: true
+  postgresPassword: '{{ env "DB_PASSWORD" | default "postgres" }}'
+  username: '{{ env "DB_USER" | default "postgres" }}'
+  password: '{{ env "DB_PASSWORD" | default "postgres" }}'
+  database: '{{ env "DB_NAME" | default "postgres" }}'
+{{ if ne .Environment.Name "ci" }}
+primary:
+  resources:
+    requests:
+      memory: 500Mi
+      cpu: 250m
+  persistence:
+    enabled: true
+    size: 500Gi
+{{ else }}
+  persistence:
+    enabled: false
+{{ end }}
+{{ if ne .Environment.Name "ci" }}
+readReplicas:
+  replicaCount: 2
+  persistence:
+    enabled: true
+    size: 200Gi
+  resources:
+    requests:
+      memory: 1Gi
+      cpu: 250m
+{{ else }}
+readReplicas:
+  persistence:
+    enabled: false
+{{ end }}
+{{ if ne .Environment.Name "ci" }}
+metrics:
+  enabled: true
+{{ end }}
