@@ -14,7 +14,7 @@ indexer:
   config:
     port: 3000 
     endpoint: "wss://rpc.polkadot.io"
-    batchSize: 500
+    batchSize: 50
   resources:
     requests:
       cpu: "1000m"
