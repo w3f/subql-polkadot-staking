@@ -11,7 +11,7 @@ run_tests() {
 }
 
 teardown() {
-    helm delete polkadot-subql
+    helm delete polkadot-subql-indexer
 }
 
 main(){

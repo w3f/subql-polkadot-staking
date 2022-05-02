@@ -16,11 +16,11 @@ spec:
     spec:
       {{- if .Values.affinity }}
       affinity:
-{{ toYaml .Values.affinity | indent 8 }}      
+{{ toYaml .Values.indexer.affinity | indent 8 }}      
       {{- end }}  
       {{- if .Values.tolerations }}          
       tolerations:
-{{ toYaml .Values.tolerations | indent 8 }}
+{{ toYaml .Values.indexer.tolerations | indent 8 }}
       {{- end }}
       containers:
       - name: {{ include "indexer.deploymentName" . }}
