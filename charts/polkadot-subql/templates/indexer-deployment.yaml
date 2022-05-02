@@ -14,11 +14,11 @@ spec:
       labels:
         app: {{ include "indexer.deploymentName" . }}
     spec:
-      {{- if .Values.affinity }}
+      {{- if .Values.indexer.affinity }}
       affinity:
 {{ toYaml .Values.indexer.affinity | indent 8 }}      
       {{- end }}  
-      {{- if .Values.tolerations }}          
+      {{- if .Values.indexer.tolerations }}          
       tolerations:
 {{ toYaml .Values.indexer.tolerations | indent 8 }}
       {{- end }}
