@@ -19,11 +19,7 @@ main(){
         trap teardown EXIT
     fi
 
-    /scripts/build-helm.sh \
-        --set environment=ci \
-        --set image.tag="${CIRCLE_SHA1}" \
-        polkadot-subql \
-        ./charts/polkadot-subql
+    /scripts/build-helmfile.sh
 
     run_tests
 }

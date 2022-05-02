@@ -1,3 +1,9 @@
+
+
 indexer:
+  {{ if eq .Environment.Name "ci" }}
+  image:
+    tag: {{ env "CIRCLE_SHA1" | default "kind" }}
+  {{ end }}
   config:
     endpoint: "wss://polkadot.api.onfinality.io/public-ws"
