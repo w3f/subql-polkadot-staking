@@ -16,6 +16,9 @@ primary:
     enabled: true
     size: 500Gi
 {{ else }}
+  resources:
+    requests: {}
+    limits: {}
   persistence:
     enabled: false
 {{ end }}

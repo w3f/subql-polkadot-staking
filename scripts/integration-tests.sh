@@ -7,7 +7,7 @@ source /scripts/bootstrap-helm.sh
 run_tests() {
     echo Running tests...
 
-    wait_pod_ready polkadot-subql
+    wait_pod_ready polkadot-subql-indexer
 }
 
 teardown() {

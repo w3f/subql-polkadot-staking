@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: {{ include "graphql.deploymentName" . }}
-        image: {{ .Values.graphql.image.repo }}:{{ .Values.graphql.image.tag | default .Chart.AppVersion }}
+        image: {{ .Values.graphql.image.repo }}:{{ .Values.graphql.image.tag }}
         imagePullPolicy: IfNotPresent
         env:
         - name: DB_USER
