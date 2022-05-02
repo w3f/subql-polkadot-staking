@@ -56,7 +56,7 @@ jobs:
 
 workflows:
   version: 2
-  test_and_deploy:
+  test_and_publish:
     jobs:    
       - helmLint:
           filters:
