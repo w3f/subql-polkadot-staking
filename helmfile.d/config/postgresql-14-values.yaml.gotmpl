@@ -7,13 +7,14 @@ auth:
   password: '{{ env "DB_PASSWORD" | default "postgres" }}'
   database: '{{ env "DB_NAME" | default "postgres" }}'
 {{ if ne .Environment.Name "ci" }}
+primary:
   resources:
     requests:
-      memory: 1Gi
+      memory: 500Mi
       cpu: 250m
   persistence:
     enabled: true
-    size: 200Gi
+    size: 500Gi
 {{ else }}
   persistence:
     enabled: false

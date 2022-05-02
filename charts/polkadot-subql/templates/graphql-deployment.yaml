@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "graphql.deploymentName" . }}
+  labels:
+    app: {{ include "graphql.deploymentName" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "graphql.deploymentName" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "graphql.deploymentName" . }}
+    spec:
+      containers:
+      - name: {{ include "graphql.deploymentName" . }}
+        image: {{ .Values.graphql.image.repo }}:{{ .Values.graphql.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DB_USER
+          value: {{ .Values.db.user }}
+        - name: DB_PASS
+          value: {{ .Values.db.password }}
+        - name: DB_DATABASE
+          value: {{ .Values.db.database }}
+        - name: DB_HOST
+          value: {{ .Values.db.host }}
+        - name: DB_PORT
+          value: {{ .Values.db.port | quote }}
+        args:
+        - --name=app
+        - --playground
+        - --indexer=http://{{ include "indexer.serviceName" . }}:{{ .Values.indexer.config.port }}
+        ports:
+        - name: service
+          containerPort: {{ .Values.graphql.config.port }}
+        {{ if ne .Values.environment "ci" }}
+        resources:
+          {{- toYaml .Values.graphql.resources | nindent 10 }}
+        {{ end }}  

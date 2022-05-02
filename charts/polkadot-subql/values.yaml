@@ -1,24 +1,30 @@
 environment: production
 
-node:
+db:
+  user: postgres
+  password: postgres
+  database: postgres
+  host: postgres-postgresql
+  port: "5432"
+
+indexer:
   image:
-    repo: ironoa/polkadot-subql
-    tag: "0.1.1"
+    repo: web3f/polkadot-subql
+    tag: "0.1.0"
   config:
     port: 3000 
     endpoint: "wss://rpc.polkadot.io"
+    batchSize: 500
+  resources:
+    requests:
+      cpu: "1000m"
+      memory: "2000Mi"
+  tolerations: []
+  affinity: {}    
 
-gengine:
+graphql:
   image:
     repo: onfinality/subql-query
     tag: latest
   config:  
     port: 3000
-
-# resources:
-#   requests:
-#     cpu: "200m"
-#     memory: "200Mi"
-#   limits:
-#     cpu: "600m"
-#     memory: "600Mi"

@@ -1,11 +1,9 @@
 environments:
   ci:
-  local:
 
 releases:
 
 - name: polkadot-subql
   chart: ../charts/polkadot-subql
-  namespace: alessio-test-subql
   values:
   - ./config/polkadot-subql-values.yaml.gotmpl
