@@ -38,7 +38,7 @@ spec:
         - name: DB_PORT
           value: {{ .Values.db.port | quote }}  
         args:
-        - -f=/app
+        - -f=/app/{{ .Values.indexer.config.manifestName }} 
         - -p={{ .Values.indexer.config.port }}
         # - --debug
         - --network-endpoint={{ .Values.indexer.config.endpoint }}

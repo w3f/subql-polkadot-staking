@@ -1,4 +1,3 @@
-#This file is still here just to make the codegen works
 specVersion: 1.0.0
 name: polkadot-staking
 version: 0.0.5

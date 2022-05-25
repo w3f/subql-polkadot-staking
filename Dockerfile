@@ -1,4 +1,4 @@
-FROM onfinality/subql-node:v0.34.1-3
+FROM onfinality/subql-node:v1.0.0
 
 WORKDIR /app
 

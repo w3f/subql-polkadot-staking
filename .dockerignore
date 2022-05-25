@@ -1,7 +1,7 @@
 *
 !src
 !package.json
-!project.yaml
+!project*.yaml
 !schema.graphql
 !tsconfig.json
 !yarn.lock
