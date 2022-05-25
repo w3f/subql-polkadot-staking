@@ -14,7 +14,7 @@
   "files": [
     "dist",
     "schema.graphql",
-    "./project-polkadot.yaml"
+    "project.yaml"
   ],
   "author": "Ian He & Jay Ji",
   "license": "MIT",
