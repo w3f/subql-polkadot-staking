@@ -1,0 +1,28 @@
+{{ if (.Values.graphql.ingress.enabled | default false) }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "graphql.ingressName" . }}
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    {{ if .Values.graphql.ingress.whitelist_source_ips }}
+    nginx.ingress.kubernetes.io/whitelist-source-range: "{{ .Values.graphql.ingress.whitelist_source_ips }}"
+    {{ end }}
+spec:
+  tls:
+  - hosts:
+      - {{ .Values.graphql.ingress.domain }}
+    secretName: {{ include "graphql.tlsSecretName" . }}
+  rules:
+  - host: {{ .Values.graphql.ingress.domain }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "graphql.serviceName" . }}
+            port:
+              number: {{ .Values.graphql.config.port }}
+{{ end }}              

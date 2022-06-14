@@ -10,7 +10,7 @@ db:
 indexer:
   image:
     repo: web3f/polkadot-subql
-    tag: "v0.1.4"
+    tag: "v0.1.5"
   config:
     port: 3000 
     endpoint: "wss://rpc.polkadot.io"
@@ -27,5 +27,9 @@ graphql:
   image:
     repo: onfinality/subql-query
     tag: latest
+  ingress:
+    enabled: false
+    domain: ""
+    whitelist_source_ips: ""  
   config:  
     port: 3000

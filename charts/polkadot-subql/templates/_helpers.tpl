@@ -17,3 +17,13 @@
 {{- define "graphql.serviceName" -}}
 {{ .Release.Name }}-graphql
 {{- end }}
+
+{{/* Returns the graphql ingress name */}}
+{{- define "graphql.ingressName" -}}
+{{ .Release.Name }}-graphql
+{{- end }}
+
+{{/* Returns the name of the graphql TLS secret */}}
+{{- define "graphql.tlsSecretName" -}}
+{{ .Release.Name }}-tls
+{{- end }}

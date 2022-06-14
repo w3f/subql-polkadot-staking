@@ -1,9 +1,8 @@
 import { SubstrateExtrinsic } from "@subql/types";
 import { Extrinsic, FunctionArgument, SilField } from "../types";
-import { Balance } from "@polkadot/types/interfaces";
 import { Text, Compact, u32 } from "@polkadot/types-codec";
 
-export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
+export async function handleExtrinsic(extrinsic: SubstrateExtrinsic): Promise<void> {
     // Extract info about the extrinsic via the metadata.
     const meta = extrinsic.extrinsic.meta;
     const header = extrinsic.block.block.header;
