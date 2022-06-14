@@ -1,13 +1,13 @@
 specVersion: 1.0.0
 name: polkadot-staking
-version: 0.0.5
+version: 0.0.6
 runner:
   node:
     name: '@subql/node'
-    version: v1.0.0
+    version: v1.1.2
   query:
     name: '@subql/query'
-    version: v1.0.0
+    version: v1.1.1
 description: This projects collects all Polkadot extrinsics.
 repository: 'https://github.com/w3f/subql-polkadot-extrinsics'
 schema:
@@ -21,5 +21,63 @@ dataSources:
     mapping:
       file: ./dist/index.js
       handlers:
+        - handler: handleExtrinsic
+          kind: substrate/CallHandler
+        #Rewards and Staking  
+        - handler: handleBond
+          kind: substrate/EventHandler
+          filter:
+            module: staking
+            method: Bonded
+        - handler: handleReward
+          kind: substrate/EventHandler
+          filter:
+            module: staking
+            method: Reward
+        - handler: handleRewarded
+          kind: substrate/EventHandler
+          filter:
+            module: staking
+            method: Rewarded
+        - handler: handleSlash
+          kind: substrate/EventHandler
+          filter:
+            module: staking
+            method: Slash
+        - handler: handleSlashed
+          kind: substrate/EventHandler
+          filter:
+            module: staking
+            method: Slashed
+        - handler: handleStakingReward
+          kind: substrate/EventHandler
+          filter:
+            module: staking
+            method: Reward
+        - handler: handleStakingRewarded
+          kind: substrate/EventHandler
+          filter:
+            module: staking
+            method: Rewarded
+        - handler: handleStakingSlash
+          kind: substrate/EventHandler
+          filter:
+            module: staking
+            method: Slash
+        - handler: handleStakingSlashed
+          kind: substrate/EventHandler
+          filter:
+            module: staking
+            method: Slashed  
+        #Transfers and Calls   
         - handler: handleCall
           kind: substrate/CallHandler
+          filter:
+            module: utility
+            method: batchAll
+            success: true
+        - handler: handleTransfer
+          kind: substrate/EventHandler
+          filter:
+            module: balances
+            method: Transfer

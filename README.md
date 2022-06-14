@@ -25,3 +25,107 @@ yarn && yarn codegen && yarn build
 ```bash
 subql-node -f .
 ```
+
+## Docker Compose Execution
+
+```bash
+docker-compose pull && docker-compose up
+
+#graphql exposed at localhost:3000
+```
+
+## Example Queries
+```
+{
+  query {
+    extrinsics(
+      last: 5
+      filter: {
+        signer: { equalTo: "CaKWz5omakTK7ovp4m3koXrHyHb7NG3Nt7GENHbviByZpKp" }
+      }
+    ) {
+      nodes {
+        id
+        blockHash
+        blockNr
+        signer
+        docs
+        callData
+      }
+    }
+  }
+}
+```
+
+```
+{
+  query {
+    extrinsics {
+      nodes {
+        id
+        signer
+        blockHash
+        blockNr
+        timestamp
+      }
+    }
+    silFields {
+      nodes {
+        id
+        name
+        type
+        typeName
+      }
+    }
+    functionArguments {
+      nodes {
+        id
+        nodeId
+        name
+        type
+        typeName
+        extrinsicId
+        extrinsic {
+          id
+          signer
+          blockHash
+          blockNr
+          timestamp
+        }
+      }
+    }
+    stakingSlashes{
+      nodes{
+        balance
+      }
+    }
+    sumRewards{
+      nodes{
+        rewards{
+          nodes{
+            balance
+          }
+        }
+      }
+    }
+    stakingRewards{
+      nodes{
+        id
+        nodeId
+        accountId
+        balance
+      }
+    }
+    noBondRecordAccounts{
+      nodes{
+        id
+      }
+    }
+    transfers{
+      nodes{
+        amount
+      }
+    }
+  }
+}
+```
