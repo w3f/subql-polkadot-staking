@@ -4,30 +4,23 @@ type Extrinsic @entity {
   block_nr: Int!
   timestamp: String!
   signer: String!
-  index: Int!
-  name: String!
-  fields: [SilField]! @derivedFrom(field: "extrinsic")
-  call_index: Int!
+  module: String!
+  method: String!
+  result: String
   docs: [String]!
-  args: [FunctionArgument]! @derivedFrom(field: "extrinsic")
+  parameters: [Parameter]! @derivedFrom(field: "extrinsic") 
   call_data: String
 }
 
-type SilField @entity {
-  id: ID!
-  name: String
-  type: Int!
-  typeName: String
-  docs: [String]!
-  extrinsic: Extrinsic!
-}
-
-type FunctionArgument @entity {
+type Parameter @entity {
   id: ID!
   name: String!
-  type: String!
-  typeName: String
+  type: Int!
+  typeName: String!
+  typeName2: String!
+  docs: [String]!
   extrinsic: Extrinsic!
+  value: String!
 }
 
 ##### Reward and Staking #####
@@ -60,7 +53,7 @@ type StakingSlash @entity{
   date: Date!
 }
 
-##### Transfer and Calls #####
+##### Transfer and BatchCalls #####
 type Account @entity {
   id: ID!
   transfers: [Transfer] @derivedFrom(field: "from")
@@ -73,10 +66,22 @@ type Transfer @entity {
   from: Account!
 }
 
-type Call @entity {
+type BatchCall @entity {
   id: ID!
+  signer: String!
+  block_hash: String!
+  block_nr: Int!
+  timestamp: String!
   module: String!
   method: String!
-  parentCall: Call
-  childCalls: [Call] @derivedFrom(field: "parentCall")
+  parentCall: BatchCall
+  childCalls: [BatchCall] @derivedFrom(field: "parentCall")
+  parameters: [BatchParameter]! @derivedFrom(field: "batchCall")
+}
+
+type BatchParameter @entity {
+  id: ID!
+  batchCall: BatchCall!
+  name: String!
+  value: String!
 }

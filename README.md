@@ -46,11 +46,21 @@ docker-compose pull && docker-compose up
     ) {
       nodes {
         id
+        signer
+        module
+        method
         blockHash
         blockNr
-        signer
-        docs
-        callData
+        timestamp
+        parameters{
+          nodes{
+            name
+            type
+            typeName
+            typeName2
+            value
+          }
+        }
       }
     }
   }
@@ -64,33 +74,19 @@ docker-compose pull && docker-compose up
       nodes {
         id
         signer
+        module
+        method
         blockHash
         blockNr
         timestamp
-      }
-    }
-    silFields {
-      nodes {
-        id
-        name
-        type
-        typeName
-      }
-    }
-    functionArguments {
-      nodes {
-        id
-        nodeId
-        name
-        type
-        typeName
-        extrinsicId
-        extrinsic {
-          id
-          signer
-          blockHash
-          blockNr
-          timestamp
+        parameters{
+          nodes{
+            name
+            type
+            typeName
+            typeName2
+            value
+          }
         }
       }
     }
@@ -124,6 +120,29 @@ docker-compose pull && docker-compose up
     transfers{
       nodes{
         amount
+      }
+    }
+    batchCalls(
+      last:1
+      filter: {
+        method: {includes: "bond"}
+      }
+    ){
+      nodes {
+        id
+        signer
+        blockNr
+        blockHash
+        module
+        method
+        parentCallId
+        parameters{
+          nodes{
+            id
+            name
+            value
+          }
+        }
       }
     }
   }

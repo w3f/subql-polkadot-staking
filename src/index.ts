@@ -4,7 +4,7 @@ export * from './mappings/Extrinsics'
 //Rewards and Staking
 export * from "./mappings/Reward";
 export * from "./mappings/Staking";
-//Transfers and Calls
+//Transfers and BatchCalls
 export * from "./mappings/AccountTransfers";
-export * from "./mappings/Calls";
+export * from "./mappings/BatchCalls";
 
