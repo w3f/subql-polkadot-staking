@@ -4,10 +4,10 @@ version: 0.0.6
 runner:
   node:
     name: '@subql/node'
-    version: v1.1.2
+    version: v1.4.1
   query:
     name: '@subql/query'
-    version: v1.1.1
+    version: v1.3.0
 description: This projects collects all Polkadot extrinsics.
 repository: 'https://github.com/w3f/subql-polkadot-extrinsics'
 schema:
@@ -70,12 +70,18 @@ dataSources:
             module: staking
             method: Slashed  
         #Transfers and Calls   
-        - handler: handleCall
+        - handler: handleBatchCall
           kind: substrate/CallHandler
           filter:
             module: utility
             method: batchAll
             success: true
+        - handler: handleBatchCall
+          kind: substrate/CallHandler
+          filter:
+            module: utility
+            method: batch
+            success: true     
         - handler: handleTransfer
           kind: substrate/EventHandler
           filter:

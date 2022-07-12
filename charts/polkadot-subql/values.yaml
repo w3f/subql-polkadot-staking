@@ -10,7 +10,7 @@ db:
 indexer:
   image:
     repo: web3f/polkadot-subql
-    tag: "v0.1.5"
+    tag: "v0.1.6"
   config:
     port: 3000 
     endpoint: "wss://rpc.polkadot.io"
