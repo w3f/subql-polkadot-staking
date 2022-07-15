@@ -1,6 +1,6 @@
 {
   "name": "polkadot-staking",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "This project can be use as a starting point for developing your SubQuery project",
   "main": "dist/index.js",
   "scripts": {
@@ -20,8 +20,8 @@
   "license": "MIT",
   "devDependencies": {
     "@polkadot/api": "^8",
-    "@subql/cli": "^1.0.0",
-    "@subql/types": "^1.0.0",
-    "typescript": "^4.6.4"
+    "@subql/cli": "latest",
+    "@subql/types": "latest",
+    "typescript": "^4.1.3"
   }
 }

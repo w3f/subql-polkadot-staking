@@ -1,6 +1,6 @@
-[![CircleCI](https://circleci.com/gh/w3f/subql-polkadot-extrinsics.svg?style=svg)](https://circleci.com/gh/w3f/subql-polkadot-extrinsics)
+[![CircleCI](https://circleci.com/gh/w3f/subql-polkadot-staking.svg?style=svg)](https://circleci.com/gh/w3f/subql-polkadot-staking)
 
-# SubQuery - Polkadot Extrinsics
+# SubQuery - Polkadot Staking
 
 
 The Starter Package is an example that you can use as a starting point for developing your SubQuery project.
