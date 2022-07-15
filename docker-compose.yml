@@ -31,7 +31,7 @@ services:
       - ./:/app
     command:
       # - -f=/app/project-polkadot.yaml
-      - -f=/app/project.yaml
+      - -f=/app/project-kusama.yaml
       # - --force-clean
       - --db-schema=app
       # - --batch-size=5000
