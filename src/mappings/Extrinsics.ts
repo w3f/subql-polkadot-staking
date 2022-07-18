@@ -1,8 +1,6 @@
 import { SubstrateExtrinsic } from "@subql/types";
 import { Extrinsic, Parameter } from "../types";
 import { makeExtrinsic } from "./utils";
-import { Call } from '@polkadot/types/interfaces';
-import {Vec} from '@polkadot/types-codec'
 
 export async function handleExtrinsic(extrinsic: SubstrateExtrinsic): Promise<void> {
     // Extract info about the extrinsic via the metadata.
@@ -36,20 +34,7 @@ export async function handleExtrinsic(extrinsic: SubstrateExtrinsic): Promise<vo
         p.extrinsicId = e.id
 
         const value = extrinsic.extrinsic.method.args[i]
-        const registry = extrinsic.extrinsic.registry
-        switch (p.name) {
-            case "calls":
-                const calls: Vec<Call> = registry.createType('Vec<Call>',value)
-                p.value = JSON.stringify(calls.toHuman())
-                break;
-            case "call":
-                const call: Call = registry.createType('Call',value)
-                p.value = JSON.stringify(call.toHuman())
-                break;    
-            default:
-                p.value = value.toString()
-                break;
-        }
+        p.value = JSON.stringify(value.toHuman())
 
         await p.save();
     }

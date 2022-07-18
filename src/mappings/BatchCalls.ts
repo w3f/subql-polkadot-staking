@@ -23,7 +23,7 @@ async function extractBatchCalls(
      for (const [i,item] of call.args.entries()) {
         const p = new BatchParameter(`${entity.id}-parameter-${i}`)
         p.batchCallId = entity.id
-        p.value = item.toString()
+        p.value = JSON.stringify(item.toHuman())
         p.name = call.meta.fields[i].name.toString()
         
         await p.save();
