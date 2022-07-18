@@ -1,6 +1,6 @@
 {
   "name": "polkadot-staking",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This project can be use as a starting point for developing your SubQuery project",
   "main": "dist/index.js",
   "scripts": {
