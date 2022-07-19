@@ -81,9 +81,21 @@ dataSources:
           filter:
             module: utility
             method: batch
-            success: true     
+            success: true
         - handler: handleTransfer
           kind: substrate/EventHandler
           filter:
             module: balances
             method: Transfer
+        - handler: handleSetController
+          kind: substrate/CallHandler
+          filter:
+            module: staking
+            method: setController
+            success: true
+        - handler: handleSetController
+          kind: substrate/CallHandler
+          filter:
+            module: staking
+            method: bond
+            success: true

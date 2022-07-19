@@ -85,3 +85,9 @@ type BatchParameter @entity {
   name: String!
   value: String!
 }
+
+type SetController @entity {
+  id: ID! #blockHeight-eventIdx
+  stash: String!
+  controller: String!
+}

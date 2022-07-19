@@ -18,7 +18,7 @@ network:
   endpoint: 'wss://polkadot.api.onfinality.io/public-ws'
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 1
+    startBlock: 20595
     mapping:
       file: ./dist/index.js
       handlers:
@@ -82,9 +82,21 @@ dataSources:
           filter:
             module: utility
             method: batch
-            success: true    
+            success: true
         - handler: handleTransfer
           kind: substrate/EventHandler
           filter:
             module: balances
             method: Transfer 
+        - handler: handleSetController
+          kind: substrate/CallHandler
+          filter:
+            module: staking
+            method: setController
+            success: true
+        - handler: handleSetController
+          kind: substrate/CallHandler
+          filter:
+            module: staking
+            method: bond
+            success: true
