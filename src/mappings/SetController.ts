@@ -17,10 +17,10 @@ export async function handleSetController(extrinsic: SubstrateExtrinsic): Promis
     const {
         extrinsic: {
             signer: id,
-            args: [args],
+            args: args,
         },
     } = extrinsic;
-    var controller = extrinsic.extrinsic.args.toString();
+    var controller = args.toString();
     // set_bond calls return 3 arguments... let's strip them away
     if (controller.includes(",")) {
         controller = controller.split(",")[0];
