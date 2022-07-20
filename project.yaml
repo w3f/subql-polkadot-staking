@@ -1,7 +1,7 @@
 #This file is still here just to make the codegen works
 specVersion: 1.0.0
 name: polkadot-staking
-version: 1.0.1
+version: 1.0.2
 runner:
   node:
     name: '@subql/node'
@@ -82,9 +82,21 @@ dataSources:
           filter:
             module: utility
             method: batch
-            success: true    
+            success: true
         - handler: handleTransfer
           kind: substrate/EventHandler
           filter:
             module: balances
             method: Transfer 
+        - handler: handleSetController
+          kind: substrate/CallHandler
+          filter:
+            module: staking
+            method: setController
+            success: true
+        - handler: handleSetController
+          kind: substrate/CallHandler
+          filter:
+            module: staking
+            method: bond
+            success: true
