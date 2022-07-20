@@ -1,16 +1,6 @@
 //https://github.com/subquery/tutorials-entity-relations/blob/main/src/mappings/AccountTransfers.ts
 import { SubstrateExtrinsic } from '@subql/types';
-import { Account } from '../types/models/Account';
 import { SetController } from '../types/models/SetController';
-
-async function ensureAccounts(accountIds: string[]): Promise<void> {
-    for (const accountId of accountIds) {
-        const account = await Account.get(accountId);
-        if (!account) {
-            await new Account(accountId).save();
-        }
-    }
-}
 
 export async function handleSetController(extrinsic: SubstrateExtrinsic): Promise<void> {
     const {
