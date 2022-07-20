@@ -13,14 +13,13 @@ async function ensureAccounts(accountIds: string[]): Promise<void> {
 }
 
 export async function handleSetController(extrinsic: SubstrateExtrinsic): Promise<void> {
-    console.log(extrinsic)
     const {
         extrinsic: {
             signer: id,
             args: args,
         },
     } = extrinsic;
-    var controller = args.toString();
+    let controller = args.toString();
     // set_bond calls return 3 arguments... let's strip them away
     if (controller.includes(",")) {
         controller = controller.split(",")[0];
